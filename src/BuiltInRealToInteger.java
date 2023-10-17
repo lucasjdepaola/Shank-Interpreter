@@ -1,0 +1,22 @@
+import java.util.ArrayList;
+
+public class BuiltInRealToInteger extends FunctionNode {
+
+	public BuiltInRealToInteger(String functionName, ArrayList<VariableNode> parameterCollection,
+			ArrayList<VariableNode> variableCollection, ArrayList<StatementNode> statements) {
+		super(functionName, parameterCollection, variableCollection, statements);
+	}
+
+	public void execute(ArrayList<InterpreterDataType> dataCollection) throws IncorrectParameterException {
+		if(dataCollection.size()!=2) {
+			throw new IncorrectParameterException(dataCollection.size()>2?"Too many arguments, needs to be 2 values":"Not enough arguments, needs to be 2 values");
+		}
+		RealDataType realNode = (RealDataType)dataCollection.get(0);
+		int toInt = (int)realNode.getReal();
+		IntegerDataType output = (IntegerDataType)dataCollection.get(1);
+		output.setInteger(toInt);
+		dataCollection.set(1, output);
+		
+	}
+
+}
